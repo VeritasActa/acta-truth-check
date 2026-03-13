@@ -1,0 +1,125 @@
+{
+  "instance": "https://veritasacta.com",
+  "timestamp": "2026-03-13T23:27:34.491Z",
+  "summary": {
+    "total": 24,
+    "pass": 23,
+    "warn": 1,
+    "fail": 0
+  },
+  "checks": [
+    {
+      "check": "manifest_exists",
+      "level": "pass"
+    },
+    {
+      "check": "manifest_has_protocol",
+      "level": "pass",
+      "detail": "acta"
+    },
+    {
+      "check": "manifest_has_charter_hash",
+      "level": "pass",
+      "detail": "3a0f734d87d5d156..."
+    },
+    {
+      "check": "manifest_has_public_key",
+      "level": "pass",
+      "detail": "712e93b514966d66..."
+    },
+    {
+      "check": "endpoint_topics",
+      "level": "pass",
+      "detail": "HTTP 200"
+    },
+    {
+      "check": "endpoint_charter",
+      "level": "pass",
+      "detail": "HTTP 200"
+    },
+    {
+      "check": "endpoint_anchor_latest",
+      "level": "pass",
+      "detail": "HTTP 200"
+    },
+    {
+      "check": "endpoint_chain_heads",
+      "level": "pass",
+      "detail": "HTTP 200"
+    },
+    {
+      "check": "endpoint_conformance",
+      "level": "pass",
+      "detail": "HTTP 200"
+    },
+    {
+      "check": "anchor_exists",
+      "level": "pass"
+    },
+    {
+      "check": "anchor_has_signature",
+      "level": "pass"
+    },
+    {
+      "check": "anchor_has_public_key",
+      "level": "pass"
+    },
+    {
+      "check": "anchor_fresh",
+      "level": "pass",
+      "detail": "23.5 hours old"
+    },
+    {
+      "check": "anchor_known_key",
+      "level": "pass"
+    },
+    {
+      "check": "anchor_signature_valid",
+      "level": "pass"
+    },
+    {
+      "check": "anchor_merkle_valid",
+      "level": "pass"
+    },
+    {
+      "check": "anchor_identity_bound",
+      "level": "warn",
+      "error": "anchor missing charter_hash or protocol_spec_hash",
+      "warning": true
+    },
+    {
+      "check": "witness_active",
+      "level": "pass",
+      "detail": "active"
+    },
+    {
+      "check": "witness_has_post_url",
+      "level": "pass",
+      "detail": "https://bsky.app/profile/veritasacta.bsky.social/post/3mgvyjhbv3h2o"
+    },
+    {
+      "check": "witness_matches_anchor",
+      "level": "pass",
+      "detail": "both: 2026-03-13T00:00:28.087Z"
+    },
+    {
+      "check": "conformance_anchor_signed",
+      "level": "pass"
+    },
+    {
+      "check": "conformance_identity_bound_honest",
+      "level": "pass",
+      "detail": "reports false, actual false"
+    },
+    {
+      "check": "conformance_chains_valid",
+      "level": "pass",
+      "detail": "5 topics"
+    },
+    {
+      "check": "chain_independent_verify",
+      "level": "pass",
+      "detail": "acta-protocol: 4 entries, all hashes valid"
+    }
+  ]
+}

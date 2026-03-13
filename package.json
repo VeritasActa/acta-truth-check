@@ -1,0 +1,24 @@
+{
+  "name": "acta-truth-check",
+  "version": "1.0.0",
+  "description": "Independent external verification of Acta instance claims. Runs outside operator infrastructure with no privileged access.",
+  "license": "MIT",
+  "type": "module",
+  "bin": {
+    "acta-truth-check": "./check.js"
+  },
+  "scripts": {
+    "check": "node check.js",
+    "check:veritasacta": "node check.js https://veritasacta.com"
+  },
+  "dependencies": {
+    "@noble/curves": "^1.8.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/VeritasActa/acta-truth-check"
+  }
+}

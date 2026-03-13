@@ -1,0 +1,73 @@
+name: Daily Truth Check
+
+on:
+  schedule:
+    # Run twice daily: 6am and 6pm UTC
+    - cron: '0 6,18 * * *'
+  workflow_dispatch: # Allow manual trigger
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - run: npm install
+
+      - name: Run truth check
+        id: check
+        run: |
+          # Run check, capture JSON report to file, stderr to console
+          node check.js https://veritasacta.com > report.json 2>&1 || true
+          echo "report_generated=true" >> $GITHUB_OUTPUT
+
+      - name: Update latest report
+        if: steps.check.outputs.report_generated == 'true'
+        run: |
+          cp report.json reports/latest.json
+          # Keep dated archive
+          DATE=$(date -u +%Y-%m-%d)
+          TIME=$(date -u +%H%M)
+          mkdir -p reports/archive
+          cp report.json "reports/archive/${DATE}-${TIME}.json"
+
+      - name: Parse results for badge
+        if: steps.check.outputs.report_generated == 'true'
+        run: |
+          FAILS=$(node -e "const r=JSON.parse(require('fs').readFileSync('report.json','utf8')); console.log(r.summary.fail)")
+          WARNS=$(node -e "const r=JSON.parse(require('fs').readFileSync('report.json','utf8')); console.log(r.summary.warn)")
+          PASS=$(node -e "const r=JSON.parse(require('fs').readFileSync('report.json','utf8')); console.log(r.summary.pass)")
+          TOTAL=$(node -e "const r=JSON.parse(require('fs').readFileSync('report.json','utf8')); console.log(r.summary.total)")
+
+          if [ "$FAILS" = "0" ] && [ "$WARNS" = "0" ]; then
+            STATUS="all_pass"
+            COLOR="brightgreen"
+            MSG="${PASS}/${TOTAL} checks pass"
+          elif [ "$FAILS" = "0" ]; then
+            STATUS="warnings"
+            COLOR="yellow"
+            MSG="${PASS} pass, ${WARNS} warn"
+          else
+            STATUS="failing"
+            COLOR="red"
+            MSG="${FAILS} failing, ${PASS} pass"
+          fi
+
+          echo "STATUS=$STATUS" >> $GITHUB_ENV
+          echo "MSG=$MSG" >> $GITHUB_ENV
+          echo "COLOR=$COLOR" >> $GITHUB_ENV
+
+      - name: Commit report
+        if: steps.check.outputs.report_generated == 'true'
+        run: |
+          git config user.name "acta-truth-check[bot]"
+          git config user.email "truth-check@veritasacta.com"
+          git add reports/
+          git diff --cached --quiet || git commit -m "Truth check: ${MSG} ($(date -u +%Y-%m-%dT%H:%M:%SZ))"
+          git push
