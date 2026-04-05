@@ -6,6 +6,9 @@ on:
     - cron: '0 6,18 * * *'
   workflow_dispatch: # Allow manual trigger
 
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 jobs:
   verify:
     runs-on: ubuntu-latest
@@ -23,8 +26,8 @@ jobs:
       - name: Run truth check
         id: check
         run: |
-          # Run check, capture JSON report to file, stderr to console
-          node check.js https://veritasacta.com > report.json 2>&1 || true
+          # Run check — stderr goes to console, only stdout JSON goes to file
+          node check.js https://veritasacta.com > report.json || true
           echo "report_generated=true" >> $GITHUB_OUTPUT
 
       - name: Update latest report
@@ -40,6 +43,15 @@ jobs:
       - name: Parse results for badge
         if: steps.check.outputs.report_generated == 'true'
         run: |
+          # Validate JSON before parsing
+          if ! node -e "JSON.parse(require('fs').readFileSync('report.json','utf8'))" 2>/dev/null; then
+            echo "report.json is not valid JSON, skipping badge parse"
+            echo "STATUS=error" >> $GITHUB_ENV
+            echo "MSG=report parse error" >> $GITHUB_ENV
+            echo "COLOR=red" >> $GITHUB_ENV
+            exit 0
+          fi
+
           FAILS=$(node -e "const r=JSON.parse(require('fs').readFileSync('report.json','utf8')); console.log(r.summary.fail)")
           WARNS=$(node -e "const r=JSON.parse(require('fs').readFileSync('report.json','utf8')); console.log(r.summary.warn)")
           PASS=$(node -e "const r=JSON.parse(require('fs').readFileSync('report.json','utf8')); console.log(r.summary.pass)")
