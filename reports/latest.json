@@ -1,6 +1,6 @@
 {
   "instance": "https://veritasacta.com",
-  "timestamp": "2026-10-13T13:04:47.041Z",
+  "timestamp": "2026-10-13T22:02:39.564Z",
   "summary": {
     "total": 25,
     "pass": 24,
@@ -67,7 +67,7 @@
     {
       "check": "anchor_fresh",
       "level": "pass",
-      "detail": "13.1 hours old"
+      "detail": "22.0 hours old"
     },
     {
       "check": "anchor_known_key",
