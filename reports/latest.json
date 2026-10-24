@@ -1,6 +1,6 @@
 {
   "instance": "https://veritasacta.com",
-  "timestamp": "2026-10-23T20:44:19.105Z",
+  "timestamp": "2026-10-24T09:55:52.469Z",
   "summary": {
     "total": 25,
     "pass": 23,
@@ -67,7 +67,7 @@
     {
       "check": "anchor_fresh",
       "level": "pass",
-      "detail": "20.7 hours old"
+      "detail": "9.9 hours old"
     },
     {
       "check": "anchor_known_key",
@@ -103,7 +103,7 @@
     {
       "check": "witness_matches_anchor",
       "level": "fail",
-      "error": "witness: 2026-09-24T00:00:26.673Z, anchor: 2026-10-23T00:00:14.842Z"
+      "error": "witness: 2026-09-24T00:00:26.673Z, anchor: 2026-10-24T00:00:14.403Z"
     },
     {
       "check": "conformance_anchor_signed",
