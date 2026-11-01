@@ -1,11 +1,11 @@
 {
   "instance": "https://veritasacta.com",
-  "timestamp": "2026-11-01T12:12:00.506Z",
+  "timestamp": "2026-11-01T21:26:39.250Z",
   "summary": {
     "total": 25,
-    "pass": 23,
+    "pass": 22,
     "warn": 0,
-    "fail": 2
+    "fail": 3
   },
   "checks": [
     {
@@ -44,8 +44,8 @@
     },
     {
       "check": "endpoint_chain_heads",
-      "level": "pass",
-      "detail": "HTTP 200"
+      "level": "fail",
+      "error": "HTTP unreachable"
     },
     {
       "check": "endpoint_conformance",
@@ -67,7 +67,7 @@
     {
       "check": "anchor_fresh",
       "level": "pass",
-      "detail": "12.2 hours old"
+      "detail": "21.4 hours old"
     },
     {
       "check": "anchor_known_key",
