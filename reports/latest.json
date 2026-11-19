@@ -1,11 +1,11 @@
 {
   "instance": "https://veritasacta.com",
-  "timestamp": "2026-11-19T14:50:27.270Z",
+  "timestamp": "2026-11-19T23:58:38.687Z",
   "summary": {
-    "total": 20,
-    "pass": 17,
+    "total": 25,
+    "pass": 23,
     "warn": 0,
-    "fail": 3
+    "fail": 2
   },
   "checks": [
     {
@@ -44,13 +44,13 @@
     },
     {
       "check": "endpoint_chain_heads",
-      "level": "fail",
-      "error": "HTTP unreachable"
+      "level": "pass",
+      "detail": "HTTP 200"
     },
     {
       "check": "endpoint_conformance",
-      "level": "fail",
-      "error": "HTTP unreachable"
+      "level": "pass",
+      "detail": "HTTP 200"
     },
     {
       "check": "anchor_exists",
@@ -67,7 +67,7 @@
     {
       "check": "anchor_fresh",
       "level": "pass",
-      "detail": "14.8 hours old"
+      "detail": "24.0 hours old"
     },
     {
       "check": "anchor_known_key",
@@ -93,7 +93,31 @@
     {
       "check": "witness_active",
       "level": "fail",
-      "error": "no witness data in conformance"
+      "detail": "behind"
+    },
+    {
+      "check": "witness_has_post_url",
+      "level": "pass",
+      "detail": "https://bsky.app/profile/veritasacta.bsky.social/post/3mwagcsm73c23"
+    },
+    {
+      "check": "witness_matches_anchor",
+      "level": "fail",
+      "error": "witness: 2026-09-24T00:00:26.673Z, anchor: 2026-11-19T00:00:12.397Z"
+    },
+    {
+      "check": "conformance_anchor_signed",
+      "level": "pass"
+    },
+    {
+      "check": "conformance_identity_bound_honest",
+      "level": "pass",
+      "detail": "reports true, actual true"
+    },
+    {
+      "check": "conformance_chains_valid",
+      "level": "pass",
+      "detail": "7 topics"
     },
     {
       "check": "chain_independent_verify",
